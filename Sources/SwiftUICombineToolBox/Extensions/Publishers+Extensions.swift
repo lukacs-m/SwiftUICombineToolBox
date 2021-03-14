@@ -15,3 +15,12 @@ extension Publisher where Self.Failure == Never {
         }
     }
 }
+
+extension Published.Publisher {
+    public func collectNext(_ count: Int) -> AnyPublisher<[Output], Never> {
+        self.dropFirst()
+            .collect(count)
+            .first()
+            .eraseToAnyPublisher()
+    }
+}
