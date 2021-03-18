@@ -11,6 +11,7 @@ public typealias CancelBag = Set<AnyCancellable>
 
 extension CancelBag {
   mutating public func cancelAll() {
+    forEach { $0.cancel() }
     removeAll()
   }
 }
