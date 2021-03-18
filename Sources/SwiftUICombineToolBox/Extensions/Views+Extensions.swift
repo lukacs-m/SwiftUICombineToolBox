@@ -9,7 +9,7 @@ import SwiftUI
 
 extension View {
     
-    @ViewBuilder func isHidden(_ hidden: Bool) -> some View {
+    @ViewBuilder public func isHidden(_ hidden: Bool) -> some View {
         if hidden {
             self.hidden()
         } else {
@@ -17,11 +17,11 @@ extension View {
         }
     }
     
-    func eraseToAnyView() -> AnyView {
+    public func eraseToAnyView() -> AnyView {
         AnyView(self)
     }
     
-    func embedInNavigation() -> some View {
+    public func embedInNavigation() -> some View {
         NavigationView { self }
     }
 }
