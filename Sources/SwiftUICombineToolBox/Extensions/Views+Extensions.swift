@@ -21,6 +21,10 @@ extension View {
         AnyView(self)
     }
     
+    public func embedInLazyView() -> some View {
+        LazyView(self)
+    }
+    
     public func embedInNavigation() -> some View {
         NavigationView { self }
     }
