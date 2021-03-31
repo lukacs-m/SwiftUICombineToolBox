@@ -6,8 +6,9 @@ import PackageDescription
 let package = Package(
     name: "SwiftUICombineToolBox",
     platforms: [
-       .iOS(.v14)
-     ],
+        .iOS(.v14),
+        .watchOS(.v7)
+    ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
@@ -24,8 +25,5 @@ let package = Package(
         .target(
             name: "SwiftUICombineToolBox",
             dependencies: []),
-        .testTarget(
-            name: "SwiftUICombineToolBoxTests",
-            dependencies: ["SwiftUICombineToolBox"]),
     ]
 )
