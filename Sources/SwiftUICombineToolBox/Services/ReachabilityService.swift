@@ -8,24 +8,31 @@
 import Combine
 import Network
 
+/// Types of network
 public enum NerworkType {
     case wifi
     case cellular
     case loopBack
     case wired
     case other
+    case unknown
 }
 
-public protocol ReachabilityServiceContract {
-    var reachabilityInfos: PassthroughSubject<NWPath, Never> { get set }
+/// Protocol containing the current device network states and informations
+public protocol ReachabilityServicing {
+    /// All NWpath informations
+    var reachabilityInfos: CurrentValueSubject<NWPath?, Never> { get set }
+    /// Is network currently available
     var isNetworkAvailable: CurrentValueSubject<Bool, Never> { get set }
-    var typeOfCurrentConnection: PassthroughSubject<NerworkType, Never> { get set }
+    /// Type of current connection
+    var typeOfCurrentConnection: CurrentValueSubject<NerworkType, Never> { get set }
 }
 
-final public class ReachabilityService: ReachabilityServiceContract {
-    public var reachabilityInfos: PassthroughSubject<NWPath, Never> = .init()
+/// <#Description#>
+final public class ReachabilityService: ReachabilityServicing {
+    public var reachabilityInfos: CurrentValueSubject<NWPath, Never> = .init(nil)
     public var isNetworkAvailable: CurrentValueSubject<Bool, Never> = .init(false)
-    public var typeOfCurrentConnection: PassthroughSubject<NerworkType, Never> = .init()
+    public var typeOfCurrentConnection: CurrentValueSubject<NerworkType, Never> = .init(.unknown)
 
     private let monitor: NWPathMonitor
     private let backgroudQueue = DispatchQueue.global(qos: .background)
@@ -47,7 +54,6 @@ final public class ReachabilityService: ReachabilityServiceContract {
 
 private extension ReachabilityService {
     func setUp() {
-        
         monitor.pathUpdateHandler = { [weak self] path in
             self?.reachabilityInfos.send(path)
             switch path.status {
@@ -68,6 +74,8 @@ private extension ReachabilityService {
                 self?.typeOfCurrentConnection.send(.wired)
             } else if path.usesInterfaceType(.other) {
                 self?.typeOfCurrentConnection.send(.other)
+            } else {
+                self?.typeOfCurrentConnection.send(.unknown)
             }
         }
         

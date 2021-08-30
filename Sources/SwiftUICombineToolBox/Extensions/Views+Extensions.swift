@@ -9,22 +9,30 @@ import SwiftUI
 
 extension View {
     
-    @ViewBuilder public func isHidden(_ hidden: Bool) -> some View {
-        if hidden {
-            self.hidden()
-        } else {
-            self
+    /// Helps hidding elements of a View based on a boolean status
+    /// - Parameter shouldHide: A boolean that indicated if the element should be hidden or not
+    /// - Returns: A View hidden or not
+    @ViewBuilder public func hide(_ shouldHide: Bool) -> some View {
+        switch shouldHide {
+        case true: self.hidden()
+        case false: self
         }
     }
     
+    /// Helper function that embeds the current View into a LazyView
+    /// - Returns: A LazyView containing current View 
+    @ViewBuilder public func embedInLazyView() -> some View {
+        LazyView(self)
+    }
+    
+    /// Helper function enabeling us to easaly return an AnyView from any type of Views
+    /// - Returns: A View typed erase to an AnyView
     public func eraseToAnyView() -> AnyView {
         AnyView(self)
     }
     
-    public func embedInLazyView() -> some View {
-        LazyView(self)
-    }
-    
+    /// Helper function that embeds a View into a Navigation View
+    /// - Returns: A NavigationView containing the current view
     public func embedInNavigation() -> some View {
         NavigationView { self }
     }

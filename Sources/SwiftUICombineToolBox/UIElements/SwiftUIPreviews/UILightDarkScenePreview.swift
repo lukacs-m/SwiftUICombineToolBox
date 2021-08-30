@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-public struct UIScenePreview<Value: View>: View {
+/// VIew that helps the display of light and dark mode in Xcode SwiftUI canvas
+public struct UILightDarkScenePreview<Value: View>: View {
     private let viewToPreview: Value
 
     public init(_ viewToPreview: Value) {

@@ -7,6 +7,7 @@
 
 import Combine
 
+///Little typealias for a set of  AnyCancellable 
 public typealias CancelBag = Set<AnyCancellable>
 
 extension CancelBag {
