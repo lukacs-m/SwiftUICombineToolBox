@@ -27,7 +27,7 @@ let package = Package(
     name: "YOUR_PROJECT_NAME",
     targets: [],
     dependencies: [
-        .package(url: "https://github.com/lukacs-m/SwiftUICombineToolBox", from: "0.12.0")
+        .package(url: "https://github.com/lukacs-m/SwiftUICombineToolBox", from: "0.0.12")
     ]
 )
 </code></pre>
