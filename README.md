@@ -21,27 +21,18 @@ SwiftUICombineToolBox is a collection of **SwiftUI/Combine extensions**. It cont
 </br>
 <p>You can use <a href="https://swift.org/package-manager">The Swift Package Manager</a> to install <code>SwiftUICombineToolBox</code> by adding the proper description to your <code>Package.swift</code> file:</p>
 
-<pre><code class="swift language-swift">import PackageDescription
+<pre>
+```
+dependencies: [
+    .package(url: "https://github.com/lukacs-m/SwiftUICombineToolBox", from: "0.0.12"),
+]
+```
+</pre>
 
-let package = Package(
-    name: "YOUR_PROJECT_NAME",
-    targets: [],
-    dependencies: [
-        .package(url: "https://github.com/lukacs-m/SwiftUICombineToolBox", from: "0.0.12")
-    ]
-)
-</code></pre>
-
-<p>Next, add <code>SwifterSwift</code> to your targets dependencies like so:</p>
-<pre><code class="swift language-swift">.target(
-    name: "YOUR_TARGET_NAME",
-    dependencies: [
-        "SwiftUICombineToolBox",
-    ]
-),</code></pre>
-<p>Then run <code>swift package update</code>.</p>
+Or in Xcode via File > Swift Packages > Add Package Dependency...
 
 </details>
+
 
 ## List of All Extensions
 
