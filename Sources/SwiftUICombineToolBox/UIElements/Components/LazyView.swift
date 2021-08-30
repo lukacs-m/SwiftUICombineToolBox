@@ -8,7 +8,7 @@
 import SwiftUI
 
 /**
- Wrapper to lazy load views when using programmatic navigation in swiftUI
+ Wrapper to lazy load views when using programmatic navigation in SwiftUI
  
  ### Usage Example: ###
  ````

@@ -7,9 +7,10 @@
 
 import SwiftUI
 
+// MARK: - View formatting helper functions
 extension View {
     
-    /// Helps hidding elements of a View based on a boolean status
+    /// Hides elements of a View based on a boolean status
     /// - Parameter shouldHide: A boolean that indicated if the element should be hidden or not
     /// - Returns: A View hidden or not
     @ViewBuilder public func hide(_ shouldHide: Bool) -> some View {
@@ -19,8 +20,24 @@ extension View {
         }
     }
     
+    /// Create a View taht takes the full space
+    /// - Parameter alignment: The current allignment of the View
+    /// - Returns: A View with infinite frame
+    func fullSize(alignment: Alignment = .center) -> some View {
+        self.frame(
+            maxWidth: .infinity,
+            maxHeight: .infinity,
+            alignment: alignment
+        )
+    }
+}
+
+// MARK: - View syntactic helpers
+
+extension View {
+    
     /// Helper function that embeds the current View into a LazyView
-    /// - Returns: A LazyView containing current View 
+    /// - Returns: A LazyView containing current View
     @ViewBuilder public func embedInLazyView() -> some View {
         LazyView(self)
     }
