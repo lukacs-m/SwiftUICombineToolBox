@@ -25,5 +25,8 @@ let package = Package(
         .target(
             name: "SwiftUICombineToolBox",
             dependencies: []),
+        .testTarget(
+            name: "SwiftUICombineToolBoxTests",
+            dependencies: ["SwiftUICombineToolBox"]),
     ]
 )

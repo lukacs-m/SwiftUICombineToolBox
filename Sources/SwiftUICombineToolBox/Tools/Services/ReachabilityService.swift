@@ -28,9 +28,9 @@ public protocol ReachabilityServicing {
     var typeOfCurrentConnection: CurrentValueSubject<NerworkType, Never> { get set }
 }
 
-/// <#Description#>
+/// Helps keep up on the device network state through combine publishers
 final public class ReachabilityService: ReachabilityServicing {
-    public var reachabilityInfos: CurrentValueSubject<NWPath, Never> = .init(nil)
+    public var reachabilityInfos: CurrentValueSubject<NWPath?, Never> = .init(nil)
     public var isNetworkAvailable: CurrentValueSubject<Bool, Never> = .init(false)
     public var typeOfCurrentConnection: CurrentValueSubject<NerworkType, Never> = .init(.unknown)
 

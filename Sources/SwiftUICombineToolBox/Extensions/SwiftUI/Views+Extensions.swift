@@ -23,7 +23,7 @@ extension View {
     /// Create a View taht takes the full space
     /// - Parameter alignment: The current allignment of the View
     /// - Returns: A View with infinite frame
-    func fullSize(alignment: Alignment = .center) -> some View {
+    public func fullSize(alignment: Alignment = .center) -> some View {
         self.frame(
             maxWidth: .infinity,
             maxHeight: .infinity,
