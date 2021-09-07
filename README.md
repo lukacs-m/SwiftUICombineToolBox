@@ -24,7 +24,7 @@ SwiftUICombineToolBox is a collection of **SwiftUI/Combine extensions**. It cont
 <pre>
 ```
 dependencies: [
-    .package(url: "https://github.com/lukacs-m/SwiftUICombineToolBox", from: "0.0.12"),
+    .package(url: "https://github.com/lukacs-m/SwiftUICombineToolBox", from: "0.0.13"),
 ]
 ```
 </pre>
@@ -40,8 +40,9 @@ Or in Xcode via File > Swift Packages > Add Package Dependency...
 <summary>Combine Extensions</summary>
 </br>
 <ul>
-<li><a href="https://github.com/lukacs-m/SwiftUICombineToolBox/blob/master/Sources/SwiftUICombineToolBox/Extensions/Publishers%2BExtensions.swift"><code>Publisher extensions</code></a></li>
-
+<li><a href="https://github.com/lukacs-m/SwiftUICombineToolBox/blob/master/Sources/SwiftUICombineToolBox/Extensions/Combine/Publishers%2BExtensions.swift"><code>Publisher extensions</code></a></li>
+<li><a href="https://github.com/lukacs-m/SwiftUICombineToolBox/blob/master/Sources/SwiftUICombineToolBox/Extensions/Combine/AnyPublishers%2BExtensions.swift"><code>AnyPublisher extensions</code></a></li>
+<li><a href="https://github.com/lukacs-m/SwiftUICombineToolBox/blob/master/Sources/SwiftUICombineToolBox/Extensions/Combine/Just%2BExtensions.swift"><code>Just extensions</code></a></li>
 </ul>
 </details>
 
@@ -50,7 +51,7 @@ Or in Xcode via File > Swift Packages > Add Package Dependency...
 <summary>SwiftUI Extensions</summary>
 </br>
 <ul>
-<li><a href="https://github.com/lukacs-m/SwiftUICombineToolBox/blob/master/Sources/SwiftUICombineToolBox/Extensions/Views%2BExtensions.swift"><code>View extensions</code></a></li>
+<li><a href="https://github.com/lukacs-m/SwiftUICombineToolBox/blob/master/Sources/SwiftUICombineToolBox/Extensions/SwiftUI/Views%2BExtensions.swift"><code>View extensions</code></a></li>
 </ul>
 </details>
 
@@ -70,10 +71,11 @@ Or in Xcode via File > Swift Packages > Add Package Dependency...
 </br>
 <ul>
 <li><a href="https://github.com/lukacs-m/SwiftUICombineToolBox/blob/master/Sources/SwiftUICombineToolBox/Tools/Services/ReachabilityService.swift"><code>ReachabilityService</code></a></li>
+<li><a href="https://github.com/lukacs-m/SwiftUICombineToolBox/blob/master/Sources/SwiftUICombineToolBox/Tools/Utilities/CancelBag.swift"><code>CancelBag</code></a></li>
 </ul>
 </details>
 
 
 ## License
 
-SwifterSwift is released under the MIT license. See [LICENSE](https://github.com/SwifterSwift/SwifterSwift/blob/master/LICENSE) for more information.
+SwiftUICombineToolBox is released under the MIT license.
