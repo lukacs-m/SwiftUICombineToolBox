@@ -36,12 +36,6 @@ extension View {
 
 extension View {
     
-    /// Helper function that embeds the current View into a LazyView
-    /// - Returns: A LazyView containing current View
-    @ViewBuilder public func embedInLazyView() -> some View {
-        LazyView(self)
-    }
-    
     /// Helper function enabeling us to easaly return an AnyView from any type of Views
     /// - Returns: A View typed erase to an AnyView
     public func eraseToAnyView() -> AnyView {
