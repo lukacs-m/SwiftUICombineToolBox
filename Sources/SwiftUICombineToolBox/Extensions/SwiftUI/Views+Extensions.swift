@@ -13,10 +13,16 @@ extension View {
     /// Hides elements of a View based on a boolean status
     /// - Parameter shouldHide: A boolean that indicated if the element should be hidden or not
     /// - Returns: A View hidden or not
-    @ViewBuilder public func hide(_ shouldHide: Bool) -> some View {
-        switch shouldHide {
-        case true: self.hidden()
-        case false: self
+    @ViewBuilder public func hide(_ shouldHide: Bool, removeFromViewHierarchy: Bool = false) -> some View {
+        if !removeFromViewHierarchy {
+            self.opacity(shouldHide ? 0 : 1)
+        } else {
+            switch shouldHide {
+            case true:
+                self.hidden()
+            case false:
+                self
+            }
         }
     }
     

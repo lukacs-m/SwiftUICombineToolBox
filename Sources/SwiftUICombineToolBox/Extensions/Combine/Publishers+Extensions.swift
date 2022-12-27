@@ -65,3 +65,49 @@ extension Publisher {
             .eraseToAnyPublisher()
     }
 }
+
+extension Publisher {
+    
+    /// Helper to execute async work in a combine stream execution
+    /// - Parameter transform: An async function
+    /// - Returns: A publisher returnning the result of the above async fonction
+    ///
+    /// This comes from the following article by sundell [Calling async functions within a Combine pipeline](https://www.swiftbysundell.com/articles/calling-async-functions-within-a-combine-pipeline/)
+    /// ```swift
+    /// struct PhotoUploader {
+    ///     var renderer: PhotoRenderer
+    ///     var urlSession = URLSession.shared
+    ///     func upload(_ photo: Photo,
+    ///             to url: URL) -> AnyPublisher<URLResponse, Error> {
+    ///         renderer
+    ///             .render(photo)
+    ///             .asyncMap { image in
+    ///                 guard let data = image.pngData() else {
+    ///                     throw PhotoUploadingError.invalidImage(image)
+    ///                 }
+    ///                 var request = URLRequest(url: url)
+    ///                 request.httpMethod = "POST"
+    ///                 let (_, response) = try await urlSession.upload(for: request, from: data)
+    ///                 return response
+    ///             }.eraseToAnyPublisher()
+    ///     }
+    ///}
+    /// ```
+    func asyncMap<T>(
+        _ transform: @escaping (Output) async throws -> T
+    ) -> Publishers.FlatMap<Future<T, Error>,
+                            Publishers.SetFailureType<Self, Error>> {
+        flatMap { value in
+            Future { promise in
+                Task {
+                    do {
+                        let output = try await transform(value)
+                        promise(.success(output))
+                    } catch {
+                        promise(.failure(error))
+                    }
+                }
+            }
+        }
+    }
+}
