@@ -21,6 +21,30 @@ extension Publisher where Self.Failure == Never {
             object?[keyPath: keyPath] = value
         }
     }
+    
+    /**
+     Allows writing sink without Task in a combine stream implementation
+     
+     - Example:  A little implementation
+     ```swift
+        $imageURL
+        .compactMap({ $0 })
+        .sink { [weak self] url in
+            await self?.processImageURL(url)
+        }
+        .store(in: &cancellables)
+     ```
+     - Parameters:
+        - validator: The validation callback
+     - Returns: An AnyCancellable that should be store.
+     */
+    public func asyncSink(receiveValue: @escaping ((Output) async -> Void)) -> AnyCancellable {
+        sink { value in
+            Task {
+                await receiveValue(value)
+            }
+        }
+    }
 }
 
 extension Publisher where Output == Data {
@@ -93,7 +117,7 @@ extension Publisher {
     ///     }
     ///}
     /// ```
-    func asyncMap<T>(
+    public func asyncMap<T>(
         _ transform: @escaping (Output) async throws -> T
     ) -> Publishers.FlatMap<Future<T, Error>,
                             Publishers.SetFailureType<Self, Error>> {
@@ -104,6 +128,37 @@ extension Publisher {
                         let output = try await transform(value)
                         promise(.success(output))
                     } catch {
+                        promise(.failure(error))
+                    }
+                }
+            }
+        }
+    }
+    
+    /// Helper to execute async work in a combine stream execution
+    /// - Parameter transform: An async function
+    /// - Returns: A publisher returnning the result of the above async fonction
+    /// This comes from the following article [Calling async functions within a Combine pipeline](https://augmentedcode.io/2023/01/09/async-await-support-for-combines-sink-and-map/)
+    /// - Example: A throwing downstream publisher
+    /// ```swift
+    ///    $imageURL
+    ///    .tryMap({ try Self.validateURL($0) })
+    ///   .tryAwaitMap({ try await ImageProcessor.process($0) })
+    ///    .map({ Image(uiImage: $0) })
+    ///   .sink(receiveCompletion: { print("completion: \($0)") },
+    ///          receiveValue: { print($0) })
+    ///   .store(in: &cancellables)
+    /// ```
+
+    public func tryAwaitMap<T>(_ transform: @escaping (Output) async throws -> T) -> Publishers.FlatMap<Future<T, Error>, Self> {
+        flatMap { value in
+            Future { promise in
+                Task {
+                    do {
+                        let result = try await transform(value)
+                        promise(.success(result))
+                    }
+                    catch {
                         promise(.failure(error))
                     }
                 }
